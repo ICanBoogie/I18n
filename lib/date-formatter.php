@@ -531,7 +531,7 @@ class DateFormatter
 	{
 		if ($length == 1)
 		{
-			return ($datetime->day + 6) / 7;
+			return floor(($datetime->day + 6) / 7);
 		}
 	}
 
@@ -553,13 +553,13 @@ class DateFormatter
 	{
 		static $translate = array
 		(
-			0 => 'sun',
 			1 => 'mon',
 			2 => 'tue',
 			3 => 'wed',
 			4 => 'thu',
 			5 => 'fri',
-			6 => 'sat'
+			6 => 'sat',
+			7 => 'sun'
 		);
 
 		$day = $datetime->weekday;
