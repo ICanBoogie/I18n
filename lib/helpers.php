@@ -126,6 +126,23 @@ function format_date($time, $pattern='default')
 	return $locale->date_formatter->format($time, $pattern);
 }
 
+function format_time($time, $pattern='default')
+{
+	$locale = get_locale();
+
+	if ($pattern == 'default')
+	{
+		$pattern = $locale->conventions['dates']['dateTimeFormats']['default'];
+	}
+
+	if (isset($locale->conventions['dates']['dateTimeFormats'][$pattern]))
+	{
+		$pattern = $locale->conventions['dates']['dateTimeFormats'][$pattern];
+	}
+
+	return $locale->date_formatter->format($time, $pattern);
+}
+
 function format_datetime($time, $date_pattern='default', $time_pattern='default')
 {
 	if (is_string($time))
