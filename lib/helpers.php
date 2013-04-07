@@ -132,12 +132,12 @@ function format_time($time, $pattern='default')
 
 	if ($pattern == 'default')
 	{
-		$pattern = $locale->conventions['dates']['dateTimeFormats']['default'];
+		$pattern = $locale->conventions['dates']['timeFormats']['default'];
 	}
 
-	if (isset($locale->conventions['dates']['dateTimeFormats'][$pattern]))
+	if (isset($locale->conventions['dates']['timeFormats'][$pattern]))
 	{
-		$pattern = $locale->conventions['dates']['dateTimeFormats'][$pattern];
+		$pattern = $locale->conventions['dates']['timeFormats'][$pattern];
 	}
 
 	return $locale->date_formatter->format($time, $pattern);
@@ -158,7 +158,7 @@ function format_datetime($time, $date_pattern='default', $time_pattern='default'
 		$time_pattern = null;
 	}
 
-	return $locale->date_formatter->format_datetime($timestamp, $date_pattern, $time_pattern);
+	return $locale->date_formatter->format_datetime($time, $date_pattern, $time_pattern);
 }
 
 function date_period($date)

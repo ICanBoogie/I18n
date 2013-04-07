@@ -17,3 +17,11 @@ namespace ICanBoogie\I18n;
  * @var string
  */
 defined('ICanBoogie\I18n\CONVENTIONS_DIRECTORY') or define('ICanBoogie\I18n\CONVENTIONS_DIRECTORY', __DIR__ . DIRECTORY_SEPARATOR . 'conventions' . DIRECTORY_SEPARATOR);
+
+/*
+ * Add package path to ICanBoogie so that it can discover our config.
+ */
+if (class_exists('ICanBoogie\Core', true))
+{
+	\ICanBoogie\Core::add_path(__DIR__);
+}

@@ -70,6 +70,6 @@ class Proxi extends Object
 			}
 		}
 
-		return t($str, $args, $options);
+		return \ICanBoogie\I18n\t($str, $args, $options);
 	}
 }
