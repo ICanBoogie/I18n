@@ -159,7 +159,7 @@ class Translator extends Object implements \ArrayAccess
 		$this->id = $id;
 	}
 
-	//static public $missing=array();
+	static public $missing = array();
 
 	/**
 	 * Translate a native string in a locale string.
@@ -242,7 +242,7 @@ class Translator extends Object implements \ArrayAccess
 
 		if (!$translated)
 		{
-			//self::$missing[] = ($prefix ? $prefix . '.' : '') . $native;
+			self::$missing[] = ($prefix ? $prefix . '.' : '') . $native;
 
 			if (!empty($options['default']))
 			{
