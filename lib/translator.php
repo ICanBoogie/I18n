@@ -248,19 +248,16 @@ class Translator extends Object implements \ArrayAccess
 			{
 				$default = $options['default'];
 
-				if ($default instanceof \Closure)
+				if (!($default instanceof \Closure))
 				{
-					return $default($native);
+					return $default;
 				}
 
-				$native = $options['default'];
-				unset($options['default']);
-
-				return $this->__invoke($native, $args, $options);
+				$native = $default($this, $native, $options, $args) ?: $native;
 			}
 
 			#
-			# We couldn't find any translation for the native string provide, in order to avoid
+			# We couldn't find any translation for the native string provided, in order to avoid
 			# another search for the same string, we store the native string as the translation in
 			# the locale messages.
 			#
