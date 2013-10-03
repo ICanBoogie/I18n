@@ -73,10 +73,10 @@ class Translator extends Object implements \ArrayAccess
 				continue;
 			}
 
-			$messages += \ICanBoogie\array_flatten(require $filename);
+			$messages[] = \ICanBoogie\array_flatten(require $filename);
 		}
 
-		return $messages;
+		return call_user_func_array('array_merge', $messages);
 	}
 
 	/**
