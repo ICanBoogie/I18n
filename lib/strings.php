@@ -2,10 +2,16 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\PropertyNotDefined;
+
 /**
  * A formatted string.
  *
  * The string is formatted by replacing placeholders with the values provided.
+ *
+ * @property-read string $format String format.
+ * @property-read array $args Format arguments.
+ * @property-read array $options I18n options.
  */
 class FormattedString
 {
@@ -32,6 +38,18 @@ class FormattedString
 		$this->format = $format;
 		$this->args = (array) $args;
 		$this->options = $options;
+	}
+
+	public function __get($property)
+	{
+		switch ($property)
+		{
+			case 'format': return $this->format;
+			case 'args': return $this->args;
+			case 'options': return $this->options;
+		}
+
+		throw new PropertyNotDefined(array($property, $this));
 	}
 
 	/**
