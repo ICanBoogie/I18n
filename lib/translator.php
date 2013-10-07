@@ -76,7 +76,7 @@ class Translator extends Object implements \ArrayAccess
 			$messages[] = \ICanBoogie\array_flatten(require $filename);
 		}
 
-		return call_user_func_array('array_merge', $messages);
+		return count($messages) ? call_user_func_array('array_merge', $messages) : array();
 	}
 
 	/**
