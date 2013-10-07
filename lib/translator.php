@@ -93,7 +93,7 @@ class Translator extends Object implements \ArrayAccess
 		$messages = array();
 		$id = $this->id;
 
-		if ($core->config['cache catalogs'])
+		if (isset($core) && $core->config['cache catalogs']) // @TODO-20131007: remove core dependency, use a message provider
 		{
 			$messages = self::get_cache()->load('i18n_' . $id, array(__CLASS__, 'messages_construct'), $id);
 		}
