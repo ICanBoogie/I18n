@@ -18,6 +18,13 @@ namespace ICanBoogie\I18n;
  */
 defined('ICanBoogie\I18n\CONVENTIONS_DIRECTORY') or define('ICanBoogie\I18n\CONVENTIONS_DIRECTORY', __DIR__ . DIRECTORY_SEPARATOR . 'conventions' . DIRECTORY_SEPARATOR);
 
+/**
+ * I18n data directory.
+ *
+ * @var string
+ */
+defined('ICanBoogie\I18n\REPOSITORY') or define('ICanBoogie\I18n\REPOSITORY', __DIR__ . DIRECTORY_SEPARATOR . 'repository' . DIRECTORY_SEPARATOR);
+
 /*
  * Add package path to ICanBoogie so that it can discover our config.
  */

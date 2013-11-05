@@ -1,8 +1,8 @@
-# I18n
+# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=master)](https://travis-ci.org/ICanBoogie/I18n)
 
-The I18n (shorthand for _internationalization_) package provides an easy-to-use and extensible
-framework for translating your application or for providing multi-language support in your
-application. The framework uses the conventions defined by the Unicode Consortium.
+The I18n package provides an easy-to-use and extensible framework for internationalizing and
+translating your application or for providing multi-language support in your application. The
+framework uses the conventions defined by the Unicode Consortium.
 
 
 
@@ -10,9 +10,7 @@ application. The framework uses the conventions defined by the Unicode Consortiu
 
 ## Requirements
 
-The package requires PHP 5.3 or later. The following packages are required:
-[icanboogie/common](https://packagist.org/packages/icanboogie/common) and
-[icanboogie/prototype](https://packagist.org/packages/icanboogie/prototype).
+The package requires PHP 5.3 or later.
 
 
 
@@ -20,15 +18,15 @@ The package requires PHP 5.3 or later. The following packages are required:
 
 ## Installation
 
-The recommended way to install this package is through [composer](http://getcomposer.org/).
+The recommended way to install this package is through [Composer](http://getcomposer.org/).
 Create a `composer.json` file and run `php composer.phar install` command to install it:
 
 ```json
 {
-    "minimum-stability": "dev",
-    "require": {
-		"icanboogie/i18n": "dev-master"
-    }
+	"minimum-stability": "dev",
+	"require": {
+		"icanboogie/i18n": "*"
+	}
 }
 ```
 
@@ -64,6 +62,10 @@ the `make clean` command.
 The test suite is ran with the `make test` command. [Composer](http://getcomposer.org/) is
 automatically installed as well as all dependencies required to run the suite. You can later
 clean the directory with the `make clean` command.
+
+The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
+
+[![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=master)](https://travis-ci.org/ICanBoogie/I18n)
 
 
 

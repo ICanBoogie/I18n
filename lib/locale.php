@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\CLDR\Repository;
 use ICanBoogie\Prototype\MethodNotDefined;
 
 /**
@@ -21,43 +22,16 @@ use ICanBoogie\Prototype\MethodNotDefined;
  * scripts. The data can also include support for text boundaries (character, word, line,
  * and sentence), text transformations (including transliterations), and other services.
  *
- * @property-read array $conventions The UNICODE conventions for the locale.
- * @property-read DateFormatter $date_formatter The data formatter for the locale.
  * @property-read string $id Locale id
  * @property-read string $language Language of the locale.
- * @property-read NumberFormatter $number_formatter The number formatter for the locale.
  * @property-read string $territory Territory of the locale.
+ * @property-read array $calendar The data of the default calendar for the locale.
+ * @property-read Conventions $conventions The UNICODE conventions for the locale.
+ * @property-read DateFormatter $date_formatter The data formatter for the locale.
+ * @property-read NumberFormatter $number_formatter The number formatter for the locale.
  * @property-read Translator $translator The translator for the locale.
- *
- * @property-read standalone_abbreviated_days
- * @property-read standalone_abbreviated_eras
- * @property-read standalone_abbreviated_months
- * @property-read standalone_abbreviated_quarters
- * @property-read standalone_narrow_days
- * @property-read standalone_narrow_eras
- * @property-read standalone_narrow_months
- * @property-read standalone_narrow_quarters
- * @property-read standalone_wide_days
- * @property-read standalone_wide_eras
- * @property-read standalone_wide_months
- * @property-read standalone_wide_quarters
- * @property-read abbreviated_days
- * @property-read abbreviated_eras
- * @property-read abbreviated_months
- * @property-read abbreviated_quarters
- * @property-read narrow_days
- * @property-read narrow_eras
- * @property-read narrow_months
- * @property-read narrow_quarters
- * @property-read wide_days
- * @property-read wide_eras
- * @property-read wide_months
- * @property-read wide_quarters
- *
- * @property-read standalone_short_days
- * @property-read short_days
  */
-class Locale extends \ICanBoogie\Object
+class Locale extends \ICanBoogie\CLDR\Locale
 {
 	/**
 	 * Instantiated locales.
@@ -73,14 +47,14 @@ class Locale extends \ICanBoogie\Object
 	 *
 	 * @return Locale.
 	 */
-	static public function get($id)
+	static public function from($id)
 	{
 		if (isset(self::$locales[$id]))
 		{
 			return self::$locales[$id];
 		}
 
-		return self::$locales[$id] = new static($id);
+		return self::$locales[$id] = new static(get_cldr(), $id);
 	}
 
 	/**
@@ -109,87 +83,26 @@ class Locale extends \ICanBoogie\Object
 	 *
 	 * @param string $id Locale identifier.
 	 */
-	protected function __construct($id)
+	public function __construct(Repository $repository, $id)
 	{
 		$id = strtr($id, '-', '_');
 		$this->id = $id;
 
 		list($this->language, $this->territory) = explode('_', $id) + array(1 => null);
+
+		parent::__construct($repository, $id);
 	}
 
-	/**
-	 * Overrides the method to support composed properties for days, eras and months.
-	 *
-	 * The following pattern is supported for composed properties:
-	 *
-	 *     ^(standalone_)?(abbreviated|narrow|wide)_(days|eras|months|quarters)$
-	 *
-	 * For example, one can get the following properties:
-	 *
-	 *     $locale->abbreviated_months
-	 *     $locale->standalone_abbreviated_months
-	 *     $locale->wide_days
-	 *     $locale->narrow_eras
-	 *
-	 * Fallbacks are available for the `narrows_eras` and `standalone_.+` properties:
-	 *
-	 * - If there is no definition available for narrow eras in the locale, the abbreviated
-	 * convention is used instead.
-	 * - If there is no stand-alone definition available, the "format" convention is used instead.
-	 *
-	 * @see http://unicode.org/reports/tr35/tr35-6.html#Calendar_Elements
-	 *
-	 * @param string $property
-	 *
-	 * @return mixed
-	 */
 	public function __get($property)
 	{
-		static $readers = array('id', 'language', 'territory');
-
-		if (in_array($property, $readers))
+		switch ($property)
 		{
-			return $this->$property;
-		}
-
-		if (preg_match('#^(standalone_)?(abbreviated|narrow|short|wide)_(days|eras|months|quarters)$#', $property, $matches))
-		{
-			list(, $standalone, $width, $type) = $matches;
-
-			$dates = $this->conventions['dates'];
-
-			if ($type == 'eras')
-			{
-				if ($width == 'narrow' && empty($dates[$type][$width]))
-				{
-					$width = 'abbreviated';
-				}
-
-				$value = $dates[$type][$width];
-			}
-			else
-			{
-				$context = $standalone ? 'stand-alone' : 'format';
-
-				if ($standalone && empty($dates[$type][$context][$width]))
-				{
-					$context = 'format';
-				}
-
-				if ($width == 'narrow' && empty($dates[$type][$context][$width]))
-				{
-					$width = 'abbreviated';
-				}
-
-				if ($width == 'abbreviated' && empty($dates[$type][$context][$width]))
-				{
-					$width = 'wide';
-				}
-
-				$value = $dates[$type][$context][$width];
-			}
-
-			return $this->$property = $value;
+			case 'id': return $this->id;
+			case 'language': return $this->language;
+			case 'territory': return $this->territory;
+			case 'calendar': return $this->$property = $this->get_calendar();
+			case 'number_formatter': return $this->$property = $this->get_number_formatter();
+			case 'translator': return $this->$property = $this->get_translator();
 		}
 
 		return parent::__get($property);
@@ -216,29 +129,13 @@ class Locale extends \ICanBoogie\Object
 	}
 
 	/**
-	 * Returns the conventions of the locale.
-	 *
-	 * Conventions are loaded from the {@link CONVENTIONS_DIRECTORY} directory.
+	 * Returns the data of the default calendar for the locale.
 	 *
 	 * @return array
 	 */
-	protected function get_conventions()
+	protected function get_calendar()
 	{
-		$try = CONVENTIONS_DIRECTORY . $this->id . '.php';
-
-		if (file_exists($try))
-		{
-			return require $try;
-		}
-
-		$try = CONVENTIONS_DIRECTORY . $this->language . '.php';
-
-		if (file_exists($try))
-		{
-			return require $try;
-		}
-
-		return require CONVENTIONS_DIRECTORY . 'en.php';
+		return $this->calendars['gregorian'];
 	}
 
 	/**
@@ -249,16 +146,6 @@ class Locale extends \ICanBoogie\Object
 	protected function get_number_formatter()
 	{
 		return new NumberFormatter($this);
-	}
-
-	/**
-	 * Returns the date formatter for the locale.
-	 *
-	 * @return DateFormatter
-	 */
-	protected function get_date_formatter()
-	{
-		return new DateFormatter($this);
 	}
 
 	/**

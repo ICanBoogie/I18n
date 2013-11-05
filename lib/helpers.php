@@ -46,6 +46,16 @@ function get_language()
 }
 
 /**
+ * Returns the CLDR representation.
+ *
+ * @return \ICanBoogie\CLDR\Repository
+ */
+function get_cldr()
+{
+	return Helpers::get_cldr();
+}
+
+/**
  * Translates a string using the current locale.
  *
  * @param string $str The native string to translate.
@@ -98,7 +108,7 @@ function format_size($size)
 
 function format_number($number)
 {
-	$decimal_point = get_locale()->conventions['numbers']['symbols']['decimal'];
+	$decimal_point = get_locale()->cldr['numbers']['symbols']['decimal'];
 	$thousands_sep = ' ';
 
 	return number_format($number, ($number - floor($number) < .009) ? 0 : 2, $decimal_point, $thousands_sep);
@@ -109,56 +119,43 @@ function format_currency($value, $currency)
 	return get_locale()->number_formatter->format_currency($value, $currency);
 }
 
-function format_date($time, $pattern='default')
+/**
+ * Formats a date.
+ *
+ * @param mixed $datetime
+ * @param string $pattern_or_width
+ *
+ * @see \ICanBoogie\CLDR\DateFormatter
+ */
+function format_date($datetime, $pattern_or_width='medium')
 {
-	$locale = get_locale();
-
-	if ($pattern == 'default')
-	{
-		$pattern = $locale->conventions['dates']['dateFormats']['default'];
-	}
-
-	if (isset($locale->conventions['dates']['dateFormats'][$pattern]))
-	{
-		$pattern = $locale->conventions['dates']['dateFormats'][$pattern];
-	}
-
-	return $locale->date_formatter->format($time, $pattern);
+	return get_locale()->calendar->date_formatter->format($datetime, $pattern_or_width);
 }
 
-function format_time($time, $pattern='default')
+/**
+ * Formats a time.
+ *
+ * @param mixed $datetime
+ * @param string $pattern_or_width
+ *
+ * @see \ICanBoogie\CLDR\TimeFormatter
+ */
+function format_time($datetime, $pattern_or_width='medium')
 {
-	$locale = get_locale();
-
-	if ($pattern == 'default')
-	{
-		$pattern = $locale->conventions['dates']['timeFormats']['default'];
-	}
-
-	if (isset($locale->conventions['dates']['timeFormats'][$pattern]))
-	{
-		$pattern = $locale->conventions['dates']['timeFormats'][$pattern];
-	}
-
-	return $locale->date_formatter->format($time, $pattern);
+	return get_locale()->calendar->time_formatter->format($datetime, $pattern_or_width);
 }
 
-function format_datetime($time, $date_pattern='default', $time_pattern='default')
+/**
+ * Formats a date and time.
+ *
+ * @param mixed $datetime
+ * @param string $pattern_or_width_or_skeleton
+ *
+ * @see \ICanBoogie\CLDR\DateTimeFormatter
+ */
+function format_datetime($datetime, $pattern_or_width_or_skeleton='medium')
 {
-	if (is_string($time))
-	{
-		$time = strtotime($time);
-	}
-
-	$locale = get_locale();
-
-	if (isset($locale->conventions['dates']['dateTimeFormats']['availableFormats'][$date_pattern]))
-	{
-		$date_pattern = $locale->conventions['dates']['dateTimeFormats']['availableFormats'][$date_pattern];
-		$time_pattern = null;
-	}
-
-	return $locale->date_formatter->format_datetime($time, $date_pattern, $time_pattern);
+	return get_locale()->calendar->datetime_formatter->format($datetime, $pattern_or_width_or_skeleton);
 }
 
 function date_period($date)
@@ -183,7 +180,7 @@ function date_period($date)
 
 	if (empty($relative[$locale_id]))
 	{
-		$relative[$locale_id] = get_locale()->conventions['dates']['fields']['day']['relative'];
+		$relative[$locale_id] = get_locale()->cldr['dates']['fields']['day']['relative'];
 	}
 
 	if (isset($relative[$locale_id][$diff]))
@@ -208,6 +205,7 @@ class Helpers
 		'get_locale' => array(__CLASS__, 'get_locale'),
 		'set_locale' => array(__CLASS__, 'set_locale'),
 		'get_language' => array(__CLASS__, 'get_language'),
+		'get_cldr' => array(__CLASS__, 'get_cldr'),
 		't' => array(__CLASS__, 't')
 	);
 
@@ -255,17 +253,35 @@ class Helpers
 
 	static private function get_locale($id=null)
 	{
-		return $id ? Locale::get($id) : (self::$locale ? self::$locale : self::$locale = Locale::get('en'));
+		return $id ? Locale::from($id) : (self::$locale ? self::$locale : self::$locale = Locale::from('en'));
 	}
 
 	static private function set_locale($id)
 	{
-		return self::$locale = Locale::get($id);
+		return self::$locale = Locale::from($id);
 	}
 
 	static private function get_language()
 	{
 		return self::$locale ? self::$locale->language : null;
+	}
+
+	static private function get_cldr()
+	{
+		static $cldr;
+
+		if (!$cldr)
+		{
+			$provider = new \ICanBoogie\CLDR\Provider
+			(
+				new \ICanBoogie\CLDR\RunTimeCache(new \ICanBoogie\CLDR\FileCache(REPOSITORY)),
+				new \ICanBoogie\CLDR\Retriever
+			);
+
+			$cldr = new \ICanBoogie\CLDR\Repository($provider);
+		}
+
+		return $cldr;
 	}
 
 	static private function t($str, array $args=array(), array $options=array())

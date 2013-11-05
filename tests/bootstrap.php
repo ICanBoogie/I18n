@@ -9,4 +9,11 @@
  * file that was distributed with this source code.
  */
 
+define('ICanBoogie\I18n\REPOSITORY', __DIR__ . '/repository');
+
 require __DIR__ . '/../vendor/autoload.php';
+
+if (!file_exists(ICanBoogie\I18n\REPOSITORY))
+{
+	mkdir(ICanBoogie\I18n\REPOSITORY);
+}

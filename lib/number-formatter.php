@@ -92,7 +92,7 @@ class NumberFormatter
 	public function __construct(Locale $locale)
 	{
 		$this->locale = $locale;
-		$this->conventions = $locale->conventions['numbers'];
+		$this->conventions = $locale['numbers'];
 	}
 
 	/**
