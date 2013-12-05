@@ -86,7 +86,7 @@ class Translator extends Object implements \ArrayAccess
 	 */
 	protected $messages;
 
-	protected function get_messages()
+	protected function lazy_get_messages()
 	{
 		global $core;
 
@@ -123,7 +123,7 @@ class Translator extends Object implements \ArrayAccess
 	 * @return Translator|null The translator fallback for this translator or null if there is
 	 * none.
 	 */
-	protected function get_fallback()
+	protected function lazy_get_fallback()
 	{
 		list($id, $territory) = explode('-', $this->id) + array(1 => null);
 
