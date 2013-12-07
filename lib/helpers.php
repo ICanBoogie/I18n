@@ -108,7 +108,8 @@ function format_size($size)
 
 function format_number($number)
 {
-	$decimal_point = get_locale()->cldr['numbers']['symbols']['decimal'];
+	$locale = get_locale();
+	$decimal_point = $locale['numbers']['symbols-numberSystem-' . $locale['numbers']['defaultNumberingSystem']]['decimal'];
 	$thousands_sep = ' ';
 
 	return number_format($number, ($number - floor($number) < .009) ? 0 : 2, $decimal_point, $thousands_sep);
@@ -180,12 +181,13 @@ function date_period($date)
 
 	if (empty($relative[$locale_id]))
 	{
-		$relative[$locale_id] = get_locale()->cldr['dates']['fields']['day']['relative'];
+		$locale = get_locale();
+		$relative[$locale_id] = $locale['dateFields']['day'];
 	}
 
-	if (isset($relative[$locale_id][$diff]))
+	if (isset($relative[$locale_id]["relative-type-{$diff}"]))
 	{
-		return $relative[$locale_id][$diff];
+		return $relative[$locale_id]["relative-type-{$diff}"];
 	}
 	else if ($diff > -6)
 	{
