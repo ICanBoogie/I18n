@@ -81,14 +81,15 @@ class Locale extends \ICanBoogie\CLDR\Locale
 	/**
 	 * Initializes the {@link $language} and {@link $territory} properties.
 	 *
-	 * @param string $id Locale identifier.
+	 * @param string $id Locale identifier. The underscore character "_" is replace with the
+	 * hypen-minus character "-" as advised by the {@link http://www.rfc-editor.org/rfc/bcp/bcp47.txt BCP 47}.
 	 */
 	public function __construct(Repository $repository, $id)
 	{
-		$id = strtr($id, '-', '_');
+		$id = strtr($id, '_', '-');
 		$this->id = $id;
 
-		list($this->language, $this->territory) = explode('_', $id) + array(1 => null);
+		list($this->language, $this->territory) = explode('-', $id) + array(1 => null);
 
 		parent::__construct($repository, $id);
 	}
