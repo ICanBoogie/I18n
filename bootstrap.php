@@ -24,11 +24,3 @@ defined('ICanBoogie\I18n\CONVENTIONS_DIRECTORY') or define('ICanBoogie\I18n\CONV
  * @var string
  */
 defined('ICanBoogie\I18n\REPOSITORY') or define('ICanBoogie\I18n\REPOSITORY', __DIR__ . DIRECTORY_SEPARATOR . 'repository' . DIRECTORY_SEPARATOR);
-
-/*
- * Add package path to ICanBoogie so that it can discover our config.
- */
-if (class_exists('ICanBoogie\Core', true))
-{
-	\ICanBoogie\Core::add_path(__DIR__);
-}
