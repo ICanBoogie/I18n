@@ -66,7 +66,7 @@ class Translator extends Object implements \ArrayAccess
 
 		foreach (I18n::$load_paths as $path)
 		{
-			$filename = $path . DIRECTORY_SEPARATOR . 'locale' . DIRECTORY_SEPARATOR . $id . '.php';
+			$filename = $path . DIRECTORY_SEPARATOR . $id . '.php';
 
 			if (!file_exists($filename))
 			{
