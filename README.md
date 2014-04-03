@@ -1,4 +1,4 @@
-# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=master)](https://travis-ci.org/ICanBoogie/I18n)
+# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=1.0)](https://travis-ci.org/ICanBoogie/I18n)
 
 The I18n package provides an easy-to-use and extensible framework for internationalizing and
 translating your application or for providing multi-language support in your application. The
@@ -25,7 +25,7 @@ Create a `composer.json` file and run `php composer.phar install` command to ins
 {
 	"minimum-stability": "dev",
 	"require": {
-		"icanboogie/i18n": "*"
+		"icanboogie/i18n": "1.0"
 	}
 }
 ```
@@ -65,7 +65,7 @@ clean the directory with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
-[![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=master)](https://travis-ci.org/ICanBoogie/I18n)
+[![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=1.0)](https://travis-ci.org/ICanBoogie/I18n)
 
 
 
