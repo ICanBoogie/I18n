@@ -252,7 +252,7 @@ class Translator extends Object implements \ArrayAccess
 		{
 			$translated = $native;
 
-			if (!empty($options['default']))
+			if (array_key_exists('default', $options))
 			{
 				$default = $options['default'];
 
