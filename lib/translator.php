@@ -174,7 +174,6 @@ class Translator extends Object implements \ArrayAccess
 	public function __invoke($native, array $args=array(), array $options=array())
 	{
 		$native = (string) $native;
-		$messages = $this->messages;
 		$translated = null;
 
 		$suffix = null;
@@ -210,6 +209,7 @@ class Translator extends Object implements \ArrayAccess
 		}
 
 		$prefix = $scope;
+		$messages = $this->messages;
 
 		while ($scope)
 		{
@@ -232,17 +232,25 @@ class Translator extends Object implements \ArrayAccess
 			$scope = substr($scope, $pos + 1);
 		}
 
-		if (!$translated)
+		if ($translated)
+		{
+			$this->messages[($prefix ? $prefix . '.' : '') . $native] = $translated;
+		}
+		else
 		{
 			if (isset($messages[$native . $suffix]))
 			{
 				$translated = $messages[$native . $suffix];
 			}
+			else
+			{
+				self::$missing[] = ($prefix ? $prefix . '.' : '') . $native;
+			}
 		}
 
 		if (!$translated)
 		{
-			self::$missing[] = ($prefix ? $prefix . '.' : '') . $native;
+			$translated = $native;
 
 			if (!empty($options['default']))
 			{
@@ -253,18 +261,8 @@ class Translator extends Object implements \ArrayAccess
 					return $default;
 				}
 
-				$native = $default($this, $native, $options, $args) ?: $native;
+				$translated = $default($this, $native, $options, $args) ?: $native;
 			}
-
-			#
-			# We couldn't find any translation for the native string provided, in order to avoid
-			# another search for the same string, we store the native string as the translation in
-			# the locale messages.
-			#
-
-			$this->messages[($prefix ? $prefix . '.' : '') . $native] = $native;
-
-			$translated = $native;
 		}
 
 		if ($args)
