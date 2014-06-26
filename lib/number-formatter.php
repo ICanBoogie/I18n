@@ -81,7 +81,7 @@ class NumberFormatter
 	 *
 	 * @var array
 	 */
-	private $formats = array();
+	private $formats = [];
 
 
 	/**
@@ -168,7 +168,7 @@ class NumberFormatter
 	 * This is the method that does actual number formatting.
 	 * @param array $format format with the following structure:
 	 * <pre>
-	 * array(
+	 * [
 	 * 	'decimalDigits'=>2,     // number of required digits after decimal point; 0s will be padded if not enough digits; if -1, it means we should drop decimal point
 	 *  'maxDecimalDigits'=>3,  // maximum number of digits after decimal point. Additional digits will be truncated.
 	 * 	'integerDigits'=>1,     // number of required digits before decimal point; 0s will be padded if not enough digits
@@ -179,7 +179,7 @@ class NumberFormatter
 	 * 	'negativePrefix'=>'(',  // prefix to negative number
 	 * 	'negativeSuffix'=>')',  // suffix to negative number
 	 * 	'multiplier'=>1,        // 100 for percent, 1000 for per mille
-	 * );
+	 * ];
 	 * </pre>
 	 * @param mixed $value the number to be formatted
 	 * @return string the formatted result
@@ -225,7 +225,7 @@ class NumberFormatter
 		else
 			$number=$format['positivePrefix'].$integer.$decimal.$format['positiveSuffix'];
 
-		return strtr($number,array('%'=>$this->conventions['symbols']['percentSign'],'‰'=>$this->conventions['symbols']['perMille']));
+		return strtr($number,[ '%'=>$this->conventions['symbols']['percentSign'],'‰'=>$this->conventions['symbols']['perMille'] ]);
 	}
 
 	/**
@@ -244,13 +244,14 @@ class NumberFormatter
 			return $this->formats[$pattern];
 		}
 
-		$format = array
-		(
+		$format = [
+
 			'positivePrefix' => '',
 			'positiveSuffix' => '',
 			'negativePrefix' => '',
 			'negativeSuffix' => ''
-		);
+
+		];
 
 		// find out prefix and suffix for positive and negative patterns
 		$patterns = explode(';',$pattern);

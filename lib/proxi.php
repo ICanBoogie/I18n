@@ -19,9 +19,9 @@ use ICanBoogie\Object;
  */
 class Proxi extends Object
 {
-	protected $options = array();
+	protected $options = [];
 
-	public function __construct(array $options=array())
+	public function __construct(array $options=[])
 	{
 		$this->options = $options;
 
@@ -51,7 +51,7 @@ class Proxi extends Object
 		$this->options['default'] = $default;
 	}
 
-	public function __invoke($str, array $args=array(), array $options=array())
+	public function __invoke($str, array $args=[], array $options=[])
 	{
 		$options += $this->options;
 

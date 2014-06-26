@@ -20,10 +20,10 @@ class I18n
 	 *
 	 * @var array
 	 */
-	static public $load_paths = array();
+	static public $load_paths = [];
 
 	static private $scope;
-	static private $scope_chain = array();
+	static private $scope_chain = [];
 
 	static public function push_scope($scope)
 	{

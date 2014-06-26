@@ -14,10 +14,13 @@ namespace ICanBoogie\I18n;
 use ICanBoogie\FileCache;
 use ICanBoogie\I18n;
 use ICanBoogie\Object;
+use ICanBoogie\OffsetNotWritable;
 
-class Translator extends Object implements \ArrayAccess
+class Translator implements \ArrayAccess
 {
-	static private $translators=array();
+	use \ICanBoogie\PrototypeTrait;
+
+	static private $translators = [];
 
 	/**
 	 * Return the translator for the specified locale.
@@ -26,7 +29,7 @@ class Translator extends Object implements \ArrayAccess
 	 *
 	 * @return Translator The translator for the locale.
 	 */
-	static public function get($id)
+	static public function from($id)
 	{
 		if (isset(self::$translators[$id]))
 		{
@@ -46,15 +49,13 @@ class Translator extends Object implements \ArrayAccess
 
 		if (!self::$cache)
 		{
-			self::$cache = new FileCache
-			(
-				array
-				(
-					FileCache::T_COMPRESS => true,
-					FileCache::T_REPOSITORY => $core->config['repository.cache'] . '/core',
-					FileCache::T_SERIALIZE => true
-				)
-			);
+			self::$cache = new FileCache([
+
+				FileCache::T_COMPRESS => true,
+				FileCache::T_REPOSITORY => $core->config['repository.cache'] . '/core',
+				FileCache::T_SERIALIZE => true
+
+			]);
 		}
 
 		return self::$cache;
@@ -62,7 +63,7 @@ class Translator extends Object implements \ArrayAccess
 
 	static public function messages_construct($id)
 	{
-		$messages = array();
+		$messages = [];
 
 		foreach (I18n::$load_paths as $path)
 		{
@@ -76,7 +77,7 @@ class Translator extends Object implements \ArrayAccess
 			$messages[] = \ICanBoogie\array_flatten(require $filename);
 		}
 
-		return count($messages) ? call_user_func_array('array_merge', $messages) : array();
+		return count($messages) ? call_user_func_array('array_merge', $messages) : [];
 	}
 
 	/**
@@ -90,12 +91,12 @@ class Translator extends Object implements \ArrayAccess
 	{
 		global $core;
 
-		$messages = array();
+		$messages = [];
 		$id = $this->id;
 
 		if (isset($core) && $core->config['cache catalogs']) // @TODO-20131007: remove core dependency, use a message provider
 		{
-			$messages = self::get_cache()->load('i18n_' . $id, array(__CLASS__, 'messages_construct'), $id);
+			$messages = self::get_cache()->load('i18n_' . $id, [ __CLASS__, 'messages_construct' ], $id);
 		}
 		else
 		{
@@ -125,7 +126,7 @@ class Translator extends Object implements \ArrayAccess
 	 */
 	protected function lazy_get_fallback()
 	{
-		list($id, $territory) = explode('-', $this->id) + array(1 => null);
+		list($id, $territory) = explode('-', $this->id) + [ 1 => null ];
 
 		if (!$territory && $id == 'en')
 		{
@@ -136,7 +137,7 @@ class Translator extends Object implements \ArrayAccess
 			$id = 'en';
 		}
 
-		return self::get($id);
+		return self::from($id);
 	}
 
 	/**
@@ -159,7 +160,7 @@ class Translator extends Object implements \ArrayAccess
 		$this->id = $id;
 	}
 
-	static public $missing = array();
+	static public $missing = [];
 
 	/**
 	 * Translate a native string in a locale string.
@@ -171,7 +172,7 @@ class Translator extends Object implements \ArrayAccess
 	 * @return string The translated string, or the same native string if no translation could be
 	 * found.
 	 */
-	public function __invoke($native, array $args=array(), array $options=array())
+	public function __invoke($native, array $args=[], array $options=[])
 	{
 		$native = (string) $native;
 		$translated = null;
@@ -285,11 +286,11 @@ class Translator extends Object implements \ArrayAccess
 
 	public function offsetSet($offset, $value)
 	{
-
+		throw new OffsetNotWritable([ $offset, $this ]);
 	}
 
 	public function offsetUnset($offset)
 	{
-
+		throw new OffsetNotWritable([ $offset, $this ]);
 	}
 }

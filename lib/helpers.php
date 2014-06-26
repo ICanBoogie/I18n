@@ -64,7 +64,7 @@ function get_cldr()
  *
  * @return string The translated string.
  */
-function t($str, array $args=array(), array $options=array())
+function t($str, array $args=[], array $options=[])
 {
 	return Helpers::t($str, $args, $options);
 }
@@ -103,7 +103,7 @@ function format_size($size)
 		$size = $size / (1024 * 1024 * 1024 * 1024);
 	}
 
-	return t($str, array(':size' => round($size)));
+	return t($str, [ ':size' => round($size) ]);
 }
 
 function format_number($number)
@@ -202,14 +202,15 @@ function date_period($date)
  */
 class Helpers
 {
-	static private $jumptable = array
-	(
-		'get_locale' => array(__CLASS__, 'get_locale'),
-		'set_locale' => array(__CLASS__, 'set_locale'),
-		'get_language' => array(__CLASS__, 'get_language'),
-		'get_cldr' => array(__CLASS__, 'get_cldr'),
-		't' => array(__CLASS__, 't')
-	);
+	static private $jumptable = [
+
+		'get_locale'   => [ __CLASS__, 'get_locale' ],
+		'set_locale'   => [ __CLASS__, 'set_locale' ],
+		'get_language' => [ __CLASS__, 'get_language' ],
+		'get_cldr'     => [ __CLASS__, 'get_cldr' ],
+		't'            => [ __CLASS__, 't' ]
+
+	];
 
 	/**
 	 * Calls the callback of a patchable function.
@@ -286,7 +287,7 @@ class Helpers
 		return $cldr;
 	}
 
-	static private function t($str, array $args=array(), array $options=array())
+	static private function t($str, array $args=[], array $options=[])
 	{
 		$locale = get_locale(empty($options['language']) ? null : $options['language']);
 

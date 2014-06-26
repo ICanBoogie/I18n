@@ -18,7 +18,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_translate($native, $args, $options, $expected)
 	{
-		$t = Translator::get('en');
+		$t = Translator::from('en');
 
 		$this->assertSame($expected, $t($native, $args, $options));
 	}

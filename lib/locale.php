@@ -38,7 +38,7 @@ class Locale extends \ICanBoogie\CLDR\Locale
 	 *
 	 * @var array[string]Locale
 	 */
-	static private $locales = array();
+	static private $locales = [];
 
 	/**
 	 * Returns the locale for the specified id.
@@ -89,7 +89,7 @@ class Locale extends \ICanBoogie\CLDR\Locale
 		$id = strtr($id, '_', '-');
 		$this->id = $id;
 
-		list($this->language, $this->territory) = explode('-', $id) + array(1 => null);
+		list($this->language, $this->territory) = explode('-', $id) + [ 1 => null ];
 
 		parent::__construct($repository, $id);
 	}
@@ -98,12 +98,29 @@ class Locale extends \ICanBoogie\CLDR\Locale
 	{
 		switch ($property)
 		{
-			case 'id': return $this->id;
-			case 'language': return $this->language;
-			case 'territory': return $this->territory;
-			case 'calendar': return $this->$property = $this->get_calendar();
-			case 'number_formatter': return $this->$property = $this->get_number_formatter();
-			case 'translator': return $this->$property = $this->get_translator();
+			case 'id':
+
+				return $this->id;
+
+			case 'language':
+
+				return $this->language;
+
+			case 'territory':
+
+				return $this->territory;
+
+			case 'calendar':
+
+				return $this->$property = $this->get_calendar();
+
+			case 'number_formatter':
+
+				return $this->$property = $this->get_number_formatter();
+
+			case 'translator':
+
+				return $this->$property = $this->get_translator();
 		}
 
 		return parent::__get($property);
@@ -111,12 +128,12 @@ class Locale extends \ICanBoogie\CLDR\Locale
 
 	public function __call($method, $arguments)
 	{
-		if (is_callable(array($this, $method)))
+		if (is_callable([ $this, $method ]))
 		{
 			return call_user_func_array($this->$method, $arguments);
 		}
 
-		throw new MethodNotDefined(array($method, $this));
+		throw new MethodNotDefined([ $method, $this ]);
 	}
 
 	/**
@@ -156,6 +173,6 @@ class Locale extends \ICanBoogie\CLDR\Locale
 	 */
 	protected function get_translator()
 	{
-		return Translator::get($this->id);
+		return Translator::from($this->id);
 	}
 }

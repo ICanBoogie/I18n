@@ -26,13 +26,13 @@ class FormattedString
 	 * @param array $args Format arguments.
 	 * @param array $options I18n options.
 	 */
-	public function __construct($format, $args=null, array $options=array())
+	public function __construct($format, $args=null, array $options=[])
 	{
 		if (!is_array($args))
 		{
 			$args = func_get_args();
 			array_shift($args);
-			$options = array();
+			$options = [];
 		}
 
 		$this->format = $format;
@@ -49,7 +49,7 @@ class FormattedString
 			case 'options': return $this->options;
 		}
 
-		throw new PropertyNotDefined(array($property, $this));
+		throw new PropertyNotDefined([ $property, $this ]);
 	}
 
 	/**
