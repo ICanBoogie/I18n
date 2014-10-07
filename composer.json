@@ -24,8 +24,17 @@
 		"icanboogie/common": "*",
 		"icanboogie/prototype": "2.x"
 	},
+
 	"autoload": {
-		"classmap": [ "lib/" ],
-		"files": [ "bootstrap.php", "lib/helpers.php" ]
+
+		"psr-4": {
+
+			"ICanBoogie\\I18n\\": "lib"
+
+		},
+
+		"classmap": [ "lib/I18n.php" ],
+
+		"files": [ "bootstrap.php", "helpers.php" ]
 	}
 }

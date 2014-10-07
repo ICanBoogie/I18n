@@ -62,10 +62,3 @@ class FormattedString
 		return t($this->format, $this->args, $this->options);
 	}
 }
-
-namespace ICanBoogie;
-
-class FormattedString extends I18n\FormattedString
-{
-
-}

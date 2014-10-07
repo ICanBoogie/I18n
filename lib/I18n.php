@@ -11,8 +11,6 @@
 
 namespace ICanBoogie;
 
-use ICanBoogie\I18n\Locale;
-
 class I18n
 {
 	/**
@@ -48,4 +46,9 @@ class I18n
 
 		return $scope;
 	}
+}
+
+class FormattedString extends \ICanBoogie\I18n\FormattedString
+{
+
 }
