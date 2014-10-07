@@ -1,8 +1,14 @@
-# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
+# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.svg?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
 
 The I18n package provides an easy-to-use and extensible framework for internationalizing and
 translating your application or for providing multi-language support in your application. The
 framework uses the conventions defined by the Unicode Consortium.
+
+
+
+
+
+----------
 
 
 
@@ -65,7 +71,7 @@ clean the directory with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
-[![Build Status](https://travis-ci.org/ICanBoogie/I18n.png?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
+[![Build Status](https://travis-ci.org/ICanBoogie/I18n.svg?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
 
 
 
@@ -73,4 +79,4 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 ## License
 
-ICanBoogie/I18n is licensed under the New BSD License - See the LICENSE file for details.
+ICanBoogie/I18n is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
