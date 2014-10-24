@@ -24,16 +24,10 @@ The package requires PHP 5.4 or later.
 
 ## Installation
 
-The recommended way to install this package is through [Composer](http://getcomposer.org/).
-Create a `composer.json` file and run `php composer.phar install` command to install it:
+The recommended way to install this package is through [Composer](http://getcomposer.org/):
 
-```json
-{
-	"minimum-stability": "dev",
-	"require": {
-		"icanboogie/i18n": "2.x"
-	}
-}
+```
+composer require icanboogie/i18n
 ```
 
 
@@ -45,7 +39,7 @@ Create a `composer.json` file and run `php composer.phar install` command to ins
 The package is [available on GitHub](https://github.com/ICanBoogie/I18n), its repository can be
 cloned with the following command line:
 
-	$ git clone git://github.com/ICanBoogie/I18n.git
+	$ git clone https://github.com/ICanBoogie/I18n.git
 
 
 
