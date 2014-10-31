@@ -14,7 +14,7 @@ namespace ICanBoogie\I18n;
 /**
  * Returns a locale.
  *
- * @param string $id Idenfitier of the locale or `null` to retrieve the current locale.
+ * @param string $id Identifier of the locale or `null` to retrieve the current locale.
  *
  * @return \ICanBoogie\I18n\Locale
  */
