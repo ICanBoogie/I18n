@@ -12,13 +12,6 @@
 namespace ICanBoogie\I18n;
 
 /**
- * I18n conventions directory.
- *
- * @var string
- */
-defined('ICanBoogie\I18n\CONVENTIONS_DIRECTORY') or define('ICanBoogie\I18n\CONVENTIONS_DIRECTORY', __DIR__ . DIRECTORY_SEPARATOR . 'conventions' . DIRECTORY_SEPARATOR);
-
-/**
  * I18n data directory.
  *
  * @var string
