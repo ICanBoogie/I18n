@@ -34,5 +34,13 @@
 		"classmap": [ "lib/I18n.php" ],
 
 		"files": [ "bootstrap.php", "helpers.php" ]
+	},
+
+	"extra": {
+
+		"icanboogie": {
+
+			"autoconfig-filters": [ "ICanBoogie\\I18n\\Hooks::filter_autoconfig" ]
+		}
 	}
 }
