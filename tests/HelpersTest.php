@@ -105,7 +105,7 @@ class HelpersTest extends \PHPUnit_Framework_TestCase
 			[ 'en', '2012-02-13', 'MMM', 'Feb' ],
 			[ 'fr', '2012-02-13', 'MMMM', 'février' ],
 			[ 'en', '2012-02-13', 'LLLL', 'February' ],
-			[ 'fr', '2012-02-13', 'LLL', 'févr.' ],
+			[ 'fr', '2012-02-13', 'LLL', 'Févr.' ],
 
 			# test: format width(full|long|medium|short)
 

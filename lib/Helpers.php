@@ -89,12 +89,7 @@ class Helpers
 
 		if (!$cldr)
 		{
-			$provider = new \ICanBoogie\CLDR\Provider
-			(
-				new \ICanBoogie\CLDR\RunTimeCache(new \ICanBoogie\CLDR\FileCache(REPOSITORY)),
-				new \ICanBoogie\CLDR\Retriever
-			);
-
+			$provider = new \ICanBoogie\CLDR\RunTimeProvider(new \ICanBoogie\CLDR\FileProvider(new \ICanBoogie\CLDR\WebProvider, REPOSITORY));
 			$cldr = new \ICanBoogie\CLDR\Repository($provider);
 		}
 
