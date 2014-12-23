@@ -19,7 +19,7 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"icanboogie/cldr": "~1.0",
+		"icanboogie/cldr": "~1.3",
 		"icanboogie/prototype": "~2.0"
 	},
 
