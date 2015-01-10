@@ -8,6 +8,17 @@ framework uses the conventions defined by the Unicode Consortium.
 
 
 
+## Prototype methods
+
+The following prototype methods are defined:
+
+- `ICanBoogie\Core::set_locale()`: Set the global locale to use. Alias to `I18n\set_locale()`. 
+- `ICanBoogie\Core::get_locale()`: Return the global locale. Alias to `I18n\get_locale()`.
+
+
+
+
+
 ----------
 
 

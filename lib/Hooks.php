@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\I18n;
+
 class Hooks
 {
 	/**
@@ -29,5 +31,29 @@ class Hooks
 				$autoconfig['locale-path'][] = $directory . 'locale';
 			}
 		}
+	}
+
+	/*
+	 * Prototypes
+	 */
+
+	/**
+	 * Sets the working locale.
+	 *
+	 * @param string $id Locale identifier.
+	 */
+	static public function set_locale(\ICanBoogie\Core $app, $id)
+	{
+		I18n\set_locale($id);
+	}
+
+	/**
+	 * Returns the working locale.
+	 *
+	 * @return I18n\Locale
+	 */
+	static public function get_locale()
+	{
+		return I18n\get_locale();
 	}
 }
