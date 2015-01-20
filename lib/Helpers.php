@@ -43,7 +43,7 @@ class Helpers
 	 * Patches a patchable function.
 	 *
 	 * @param string $name Name of the function.
-	 * @param collable $callback Callback.
+	 * @param callable $callback Callback.
 	 *
 	 * @throws \RuntimeException is attempt to patch an undefined function.
 	 */
@@ -64,18 +64,18 @@ class Helpers
 	/**
 	 * Current locale.
 	 *
-	 * @var \ICanBoogie\I18n\Locale
+	 * @var \ICanBoogie\CLDR\Locale
 	 */
 	static private $locale;
 
 	static private function get_locale($id=null)
 	{
-		return $id ? Locale::from($id) : (self::$locale ? self::$locale : self::$locale = Locale::from('en'));
+		return $id ? get_cldr()->locales[$id] : (self::$locale ? self::$locale : self::$locale = get_cldr()->locales['en']);
 	}
 
 	static private function set_locale($id)
 	{
-		return self::$locale = Locale::from($id);
+		return self::$locale = get_cldr()->locales[$id];
 	}
 
 	static private function get_language()
@@ -98,8 +98,9 @@ class Helpers
 
 	static private function t($str, array $args=[], array $options=[])
 	{
-		$locale = get_locale(empty($options['language']) ? null : $options['language']);
+		$locale_code = empty($options['language']) ? get_locale()->code : $options['language'];
+		$translator = Translator::from($locale_code);
 
-		return $locale->translator($str, $args, $options);
+		return $translator($str, $args, $options);
 	}
 }

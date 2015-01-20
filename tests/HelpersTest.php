@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ICanBoogie package.
+ *
+ * (c) Olivier Laviale <olivier.laviale@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace ICanBoogie\I18n;
 
 class HelpersTest extends \PHPUnit_Framework_TestCase
@@ -120,6 +129,46 @@ class HelpersTest extends \PHPUnit_Framework_TestCase
 			[ 'fr', '2013-11-02 22:23:45', 'long', '2 novembre 2013 22:23:45 CET' ],
 			[ 'fr', '2013-11-02 22:23:45', 'medium', '2 nov. 2013 22:23:45' ],
 			[ 'fr', '2013-11-02 22:23:45', 'short', '02/11/2013 22:23' ]
+
+		];
+	}
+
+	/**
+	 * @dataProvider provide_test_format_number
+	 */
+	public function test_format_number($locale_code, $number, $expected)
+	{
+		set_locale($locale_code);
+
+		$this->assertEquals($expected, format_number($number));
+	}
+
+	public function provide_test_format_number()
+	{
+		return [
+
+			[ 'fr', 1234567.456, "1 234 567,456" ],
+			[ 'en', 1234567.456, "1,234,567.456" ]
+
+		];
+	}
+
+	/**
+	 * @dataProvider provide_test_format_currency
+	 */
+	public function test_format_currency($locale_code, $currency_code, $number, $expected)
+	{
+		set_locale($locale_code);
+
+		$this->assertEquals($expected, format_currency($number, $currency_code));
+	}
+
+	public function provide_test_format_currency()
+	{
+		return [
+
+			[ 'fr', 'EUR', 1234567.456, "1 234 567,46 €" ],
+			[ 'fr', 'USD', 1234567.456, "1 234 567,46 \$US" ]
 
 		];
 	}

@@ -11,12 +11,14 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\CLDR\Currency;
+
 /**
  * Returns a locale.
  *
  * @param string $id Identifier of the locale or `null` to retrieve the current locale.
  *
- * @return \ICanBoogie\I18n\Locale
+ * @return \ICanBoogie\CLDR\Locale
  */
 function get_locale($id=null)
 {
@@ -28,7 +30,7 @@ function get_locale($id=null)
  *
  * @param string $id Locale identifier.
  *
- * @return \ICanBoogie\I18n\Locale
+ * @return \ICanBoogie\CLDR\Locale
  */
 function set_locale($id)
 {
@@ -106,18 +108,37 @@ function format_size($size)
 	return t($str, [ ':size' => round($size) ]);
 }
 
-function format_number($number)
+/**
+ * Formats a number.
+ *
+ * @param $number
+ * @param string|null $pattern
+ *
+ * @return string
+ */
+function format_number($number, $pattern=null)
 {
-	$locale = get_locale();
-	$decimal_point = $locale['numbers']['symbols-numberSystem-' . $locale['numbers']['defaultNumberingSystem']]['decimal'];
-	$thousands_sep = ' ';
-
-	return number_format($number, ($number - floor($number) < .009) ? 0 : 2, $decimal_point, $thousands_sep);
+	return get_locale()->format_number($number, $pattern);
 }
 
-function format_currency($value, $currency)
+/**
+ * Formats a currency using the current locale.
+ *
+ * @param number $number
+ * @param string|Currency $currency The currency code or a {@link Currency} instance.
+ *
+ * @return string
+ */
+function format_currency($number, $currency)
 {
-	return get_locale()->number_formatter->format_currency($value, $currency);
+	if (!$currency instanceof Currency)
+	{
+		$currency = get_cldr()->currencies[$currency];
+	}
+
+	$localized_currency = get_locale()->localize($currency);
+
+	return $localized_currency->format($number);
 }
 
 /**
@@ -125,6 +146,8 @@ function format_currency($value, $currency)
  *
  * @param mixed $datetime
  * @param string $pattern_or_width
+ *
+ * @return string
  *
  * @see \ICanBoogie\CLDR\DateFormatter
  */
@@ -139,6 +162,8 @@ function format_date($datetime, $pattern_or_width='medium')
  * @param mixed $datetime
  * @param string $pattern_or_width
  *
+ * @return string
+ *
  * @see \ICanBoogie\CLDR\TimeFormatter
  */
 function format_time($datetime, $pattern_or_width='medium')
@@ -151,6 +176,8 @@ function format_time($datetime, $pattern_or_width='medium')
  *
  * @param mixed $datetime
  * @param string $pattern_or_width_or_skeleton
+ *
+ * @return string
  *
  * @see \ICanBoogie\CLDR\DateTimeFormatter
  */
