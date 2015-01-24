@@ -1,19 +1,6 @@
 # I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.svg?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
 
-The I18n package provides an easy-to-use and extensible framework for internationalizing and
-translating your application or for providing multi-language support in your application. The
-framework uses the conventions defined by the Unicode Consortium.
-
-
-
-
-
-## Prototype methods
-
-The following prototype methods are defined:
-
-- `ICanBoogie\Core::set_locale()`: Set the global locale to use. Alias to `I18n\set_locale()`. 
-- `ICanBoogie\Core::get_locale()`: Return the global locale. Alias to `I18n\get_locale()`.
+The I18n package provides an API to translate your application.
 
 
 

@@ -85,15 +85,7 @@ class Helpers
 
 	static private function get_cldr()
 	{
-		static $cldr;
-
-		if (!$cldr)
-		{
-			$provider = new \ICanBoogie\CLDR\RunTimeProvider(new \ICanBoogie\CLDR\FileProvider(new \ICanBoogie\CLDR\WebProvider, REPOSITORY));
-			$cldr = new \ICanBoogie\CLDR\Repository($provider);
-		}
-
-		return $cldr;
+		return \ICanBoogie\app()->cldr;
 	}
 
 	static private function t($str, array $args=[], array $options=[])
