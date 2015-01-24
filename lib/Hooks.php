@@ -20,11 +20,9 @@ class Hooks
 	 *
 	 * @param array $autoconfig
 	 */
-	static public function filter_autoconfig(array &$autoconfig, $root)
+	static public function filter_autoconfig(array &$autoconfig)
 	{
-		$directories = \ICanBoogie\resolve_app_paths($root);
-
-		foreach ($directories as $directory)
+		foreach ($autoconfig['app-paths'] as $directory)
 		{
 			if (file_exists($directory . 'locale'))
 			{
@@ -50,7 +48,7 @@ class Hooks
 	/**
 	 * Returns the working locale.
 	 *
-	 * @return I18n\Locale
+	 * @return \ICanBoogie\CLDR\Locale
 	 */
 	static public function get_locale()
 	{
