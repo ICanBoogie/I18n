@@ -63,12 +63,12 @@ class Helpers
 
 	static private function get_cldr()
 	{
-		throw new \LogicException("The helper need to be patched.");
+		return \ICanBoogie\app()->cldr;
 	}
 
 	static private function get_locale($id=null)
 	{
-		throw new \LogicException("The helper need to be patched.");
+		return \ICanBoogie\app()->locale;
 	}
 
 	static private function get_language()
