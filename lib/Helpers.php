@@ -61,31 +61,19 @@ class Helpers
 	 * Default implementations
 	 */
 
-	/**
-	 * Current locale.
-	 *
-	 * @var \ICanBoogie\CLDR\Locale
-	 */
-	static private $locale;
+	static private function get_cldr()
+	{
+		throw new \LogicException("The helper need to be patched.");
+	}
 
 	static private function get_locale($id=null)
 	{
-		return $id ? get_cldr()->locales[$id] : (self::$locale ? self::$locale : self::$locale = get_cldr()->locales['en']);
-	}
-
-	static private function set_locale($id)
-	{
-		return self::$locale = get_cldr()->locales[$id];
+		throw new \LogicException("The helper need to be patched.");
 	}
 
 	static private function get_language()
 	{
-		return self::$locale ? self::$locale->language : null;
-	}
-
-	static private function get_cldr()
-	{
-		return \ICanBoogie\app()->cldr;
+		return get_locale()->language;
 	}
 
 	static private function t($str, array $args=[], array $options=[])
