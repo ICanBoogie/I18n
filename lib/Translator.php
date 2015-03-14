@@ -45,14 +45,12 @@ class Translator implements \ArrayAccess
 
 	static protected function get_cache()
 	{
-		global $core;
-
 		if (!self::$cache)
 		{
 			self::$cache = new FileCache([
 
 				FileCache::T_COMPRESS => true,
-				FileCache::T_REPOSITORY => $core->config['repository.cache'] . '/core',
+				FileCache::T_REPOSITORY => \ICanBoogie\app()->config['repository.cache'] . '/core',
 				FileCache::T_SERIALIZE => true
 
 			]);
@@ -89,16 +87,24 @@ class Translator implements \ArrayAccess
 
 	protected function lazy_get_messages()
 	{
-		global $core;
-
-		$messages = [];
+		$messages = null;
 		$id = $this->id;
 
-		if (isset($core) && $core->config['cache catalogs']) // @TODO-20131007: remove core dependency, use a message provider
+		try
 		{
-			$messages = self::get_cache()->load('i18n_' . $id, [ __CLASS__, 'messages_construct' ], $id);
+			if (\ICanBoogie\app()->config['cache catalogs'])
+			{
+				$messages = self::get_cache()->load('i18n_' . $id, [ __CLASS__, 'messages_construct' ], $id);
+			}
 		}
-		else
+		catch (\Exception $e)
+		{
+			#
+			#
+			#
+		}
+
+		if ($messages === null)
 		{
 			$messages = self::messages_construct($id);
 		}
