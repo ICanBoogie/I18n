@@ -11,10 +11,15 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\Core;
 use ICanBoogie\I18n;
 
 class Hooks
 {
+	/*
+	 * Autoconfig
+	 */
+
 	/**
 	 * Adds the "locale" directories found in the app paths to `locale-path`.
 	 *
@@ -29,5 +34,26 @@ class Hooks
 				$autoconfig['locale-path'][] = $directory . 'locale';
 			}
 		}
+	}
+
+	/*
+	 * Prototypes
+	 */
+
+	/**
+	 * Translates and formats a string.
+	 *
+	 * @param Core $app
+	 * @param string $native
+	 * @param array $args
+	 * @param array $options
+	 *
+	 * @return string
+	 *
+	 * @see t
+	 */
+	static public function translate(Core $app, $native, array $args = [], array $options = [])
+	{
+		return t($native, $args, $options);
 	}
 }
