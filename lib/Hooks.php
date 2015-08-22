@@ -37,6 +37,23 @@ class Hooks
 	}
 
 	/*
+	 * Events
+	 */
+
+	/**
+	 * Event hook for `ICanBoogie\Core::boot`.
+	 *
+	 * Sets `I18n::$load_paths` using application config value `locale-paths`.
+	 *
+	 * @param Core\BootEvent $event
+	 * @param Core $app
+	 */
+	static public function on_core_boot(Core\BootEvent $event, Core $app)
+	{
+		I18n::$load_paths = $app->config['locale-path'];
+	}
+
+	/*
 	 * Prototypes
 	 */
 

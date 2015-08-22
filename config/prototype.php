@@ -8,10 +8,6 @@ $hooks = Hooks::class . '::';
 
 return [
 
-	'events' => [
-
-		ICanBoogie\Core::class . '::boot' => $hooks . 'on_core_boot'
-
-	]
+	ICanBoogie\Core::class . '::translate' => $hooks . 'translate'
 
 ];
