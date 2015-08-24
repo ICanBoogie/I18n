@@ -13,7 +13,7 @@ namespace ICanBoogie\I18n;
 
 use ICanBoogie\FileCache;
 use ICanBoogie\I18n;
-use ICanBoogie\Object;
+use ICanBoogie\Prototyped;
 use ICanBoogie\OffsetNotWritable;
 
 class Translator implements \ArrayAccess

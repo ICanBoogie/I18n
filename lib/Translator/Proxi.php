@@ -11,13 +11,13 @@
 
 namespace ICanBoogie\I18n\Translator;
 
-use ICanBoogie\Object;
+use ICanBoogie\Prototyped;
 
 /**
  * The Proxi class creates translators, which can be used to easily translate string using
  * a same set of options.
  */
-class Proxi extends Object
+class Proxi extends Prototyped
 {
 	protected $options = [];
 
