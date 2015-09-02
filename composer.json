@@ -32,7 +32,8 @@
 	"extra": {
 		"icanboogie": {
 			"autoconfig-filters": [ "ICanBoogie\\I18n\\Hooks::filter_autoconfig" ],
-			"config-path": "config"
+			"config-path": "config",
+			"locale-path": "locale"
 		}
 	}
 }
