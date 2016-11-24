@@ -1,4 +1,11 @@
-# I18n [![Build Status](https://travis-ci.org/ICanBoogie/I18n.svg?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
+# I18n
+
+[![Release](https://img.shields.io/packagist/v/icanboogie/i18n.svg)](https://packagist.org/packages/icanboogie/i18n)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/i18n/master.svg)](http://travis-ci.org/ICanBoogie/i18n)
+[![HHVM](https://img.shields.io/hhvm/icanboogie/i18n.svg)](http://hhvm.h4cc.de/package/icanboogie/i18n)
+[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/i18n/master.svg)](https://scrutinizer-ci.com/g/ICanBoogie/i18n)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/i18n/master.svg)](https://coveralls.io/r/ICanBoogie/i18n)
+[![Packagist](https://img.shields.io/packagist/dt/icanboogie/i18n.svg)](https://packagist.org/packages/icanboogie/i18n)
 
 The I18n package provides an API to translate your application.
 
@@ -14,7 +21,7 @@ The I18n package provides an API to translate your application.
 
 ## Requirements
 
-The package requires PHP 5.4 or later.
+The package requires PHP 5.6 or later.
 
 
 
@@ -63,7 +70,8 @@ clean the directory with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
-[![Build Status](https://travis-ci.org/ICanBoogie/I18n.svg?branch=2.0)](https://travis-ci.org/ICanBoogie/I18n)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/i18n/master.svg)](http://travis-ci.org/ICanBoogie/i18n)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/i18n/master.svg)](https://coveralls.io/r/ICanBoogie/i18n)
 
 
 
