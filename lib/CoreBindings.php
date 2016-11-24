@@ -12,11 +12,11 @@
 namespace ICanBoogie\Binding\I18n;
 
 /**
- * {@link ICanBoogie\Core} prototype bindings.
+ * {@link ICanBoogie\Application} prototype bindings.
  *
  * @method string translate($native, array $args = [], array $options = []) Translates and formats a string.
  */
-trait CoreBindings
+trait ApplicationBindings
 {
 
 }

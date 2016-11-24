@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\I18n;
 
-use ICanBoogie\Core;
+use ICanBoogie\Application;
 use ICanBoogie\I18n;
 
 class Hooks
@@ -41,14 +41,14 @@ class Hooks
 	 */
 
 	/**
-	 * Event hook for `ICanBoogie\Core::boot`.
+	 * Event hook for `ICanBoogie\Application::boot`.
 	 *
 	 * Sets `I18n::$load_paths` using application config value `locale-paths`.
 	 *
-	 * @param Core\BootEvent $event
-	 * @param Core $app
+	 * @param Application\BootEvent $event
+	 * @param Application $app
 	 */
-	static public function on_core_boot(Core\BootEvent $event, Core $app)
+	static public function on_app_boot(Application\BootEvent $event, Application $app)
 	{
 		I18n::$load_paths = $app->config['locale-path'];
 	}
@@ -60,7 +60,7 @@ class Hooks
 	/**
 	 * Translates and formats a string.
 	 *
-	 * @param Core $app
+	 * @param Application $app
 	 * @param string $native
 	 * @param array $args
 	 * @param array $options
@@ -69,7 +69,7 @@ class Hooks
 	 *
 	 * @see t
 	 */
-	static public function translate(Core $app, $native, array $args = [], array $options = [])
+	static public function translate(Application $app, $native, array $args = [], array $options = [])
 	{
 		return t($native, $args, $options);
 	}

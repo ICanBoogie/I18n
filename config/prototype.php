@@ -8,6 +8,6 @@ $hooks = Hooks::class . '::';
 
 return [
 
-	ICanBoogie\Core::class . '::translate' => $hooks . 'translate'
+	ICanBoogie\Application::class . '::translate' => $hooks . 'translate'
 
 ];
