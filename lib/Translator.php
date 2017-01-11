@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\I18n;
 
+use ICanBoogie\AppConfig;
 use ICanBoogie\FileCache;
 use ICanBoogie\I18n;
 use ICanBoogie\Prototyped;
@@ -50,7 +51,7 @@ class Translator implements \ArrayAccess
 			self::$cache = new FileCache([
 
 				FileCache::T_COMPRESS => true,
-				FileCache::T_REPOSITORY => \ICanBoogie\app()->config['repository.cache'] . '/core',
+				FileCache::T_REPOSITORY => \ICanBoogie\app()->config[AppConfig::REPOSITORY_CACHE] . '/core',
 				FileCache::T_SERIALIZE => true
 
 			]);
