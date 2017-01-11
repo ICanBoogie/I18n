@@ -9,13 +9,24 @@
  * file that was distributed with this source code.
  */
 
-define('ICanBoogie\I18n\REPOSITORY', __DIR__ . '/repository');
+namespace ICanBoogie;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (!file_exists(ICanBoogie\I18n\REPOSITORY))
+date_default_timezone_set('Europe/Madrid');
+
+class Application extends Core
 {
-	mkdir(ICanBoogie\I18n\REPOSITORY);
+	use Binding\I18n\ApplicationBindings;
 }
 
-date_default_timezone_set('Europe/Madrid');
+boot(array_merge_recursive(get_autoconfig(), [
+
+	'config-path' => [
+
+		__DIR__ . '/../config' => Autoconfig\Config::CONFIG_WEIGHT_APP,
+		__DIR__ . '/config' => Autoconfig\Config::CONFIG_WEIGHT_APP
+
+	],
+
+]));

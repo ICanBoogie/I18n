@@ -31,12 +31,11 @@ function get_locale($id=null)
  * @param string $id Locale identifier.
  *
  * @return \ICanBoogie\CLDR\Locale
- * /
+ */
 function set_locale($id)
 {
 	return Helpers::set_locale($id);
 }
-*/
 
 /**
  * Returns the language of the current locale.

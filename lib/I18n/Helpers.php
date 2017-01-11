@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\I18n;
 
+use function ICanBoogie\app;
+
 /**
  * Patchable helpers of the ICanBoogie/I18n package.
  */
@@ -18,11 +20,11 @@ class Helpers
 {
 	static private $jumptable = [
 
-		'get_locale'   => [ __CLASS__, 'get_locale' ],
-		'set_locale'   => [ __CLASS__, 'set_locale' ],
-		'get_language' => [ __CLASS__, 'get_language' ],
-		'get_cldr'     => [ __CLASS__, 'get_cldr' ],
-		't'            => [ __CLASS__, 't' ]
+		'get_locale'   => [ __CLASS__, 'default_get_locale' ],
+		'set_locale'   => [ __CLASS__, 'default_set_locale' ],
+		'get_language' => [ __CLASS__, 'default_get_language' ],
+		'get_cldr'     => [ __CLASS__, 'default_get_cldr' ],
+		't'            => [ __CLASS__, 'default_t' ]
 
 	];
 
@@ -61,22 +63,27 @@ class Helpers
 	 * Default implementations
 	 */
 
-	static private function get_cldr()
+	static private function default_get_cldr()
 	{
-		return \ICanBoogie\app()->cldr;
+		return app()->cldr;
 	}
 
-	static private function get_locale($id=null)
+	static private function default_set_locale($locale)
 	{
-		return \ICanBoogie\app()->locale;
+		app()->locale = $locale;
 	}
 
-	static private function get_language()
+	static private function default_get_locale($id = null)
+	{
+		return app()->locale;
+	}
+
+	static private function default_get_language()
 	{
 		return get_locale()->language;
 	}
 
-	static private function t($str, array $args=[], array $options=[])
+	static private function default_t($str, array $args=[], array $options=[])
 	{
 		$locale_code = empty($options['language']) ? get_locale()->code : $options['language'];
 		$translator = Translator::from($locale_code);

@@ -14,12 +14,12 @@ namespace ICanBoogie\I18n;
 use ICanBoogie\AppConfig;
 use ICanBoogie\FileCache;
 use ICanBoogie\I18n;
-use ICanBoogie\Prototyped;
+use ICanBoogie\PrototypeTrait;
 use ICanBoogie\OffsetNotWritable;
 
 class Translator implements \ArrayAccess
 {
-	use \ICanBoogie\PrototypeTrait;
+	use PrototypeTrait;
 
 	static private $translators = [];
 
@@ -137,7 +137,7 @@ class Translator implements \ArrayAccess
 
 		if (!$territory && $id == 'en')
 		{
-			return;
+			return null;
 		}
 		else if (!$territory)
 		{
