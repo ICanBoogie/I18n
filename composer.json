@@ -24,7 +24,8 @@
 	"require": {
 		"php": ">=5.6",
 		"icanboogie/cldr": "^1.4",
-		"icanboogie/prototype": "^3.0"
+		"icanboogie/prototype": "^3.0",
+		"olvlvl/filecache": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
