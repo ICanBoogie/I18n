@@ -125,9 +125,9 @@ class HelpersTest extends \PHPUnit_Framework_TestCase
 
 			# test: format width(full|long|medium|short) in french
 
-			[ 'fr', '2013-11-02 22:23:45', 'full', 'samedi 2 novembre 2013 22:23:45 CET' ],
-			[ 'fr', '2013-11-02 22:23:45', 'long', '2 novembre 2013 22:23:45 CET' ],
-			[ 'fr', '2013-11-02 22:23:45', 'medium', '2 nov. 2013 22:23:45' ],
+			[ 'fr', '2013-11-02 22:23:45', 'full', 'samedi 2 novembre 2013 à 22:23:45 CET' ],
+			[ 'fr', '2013-11-02 22:23:45', 'long', '2 novembre 2013 à 22:23:45 CET' ],
+			[ 'fr', '2013-11-02 22:23:45', 'medium', '2 nov. 2013 à 22:23:45' ],
 			[ 'fr', '2013-11-02 22:23:45', 'short', '02/11/2013 22:23' ]
 
 		];

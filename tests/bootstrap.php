@@ -11,6 +11,8 @@
 
 namespace ICanBoogie;
 
+use ICanBoogie\Autoconfig\Autoconfig;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 date_default_timezone_set('Europe/Madrid');
@@ -24,8 +26,8 @@ boot(array_merge_recursive(get_autoconfig(), [
 
 	'config-path' => [
 
-		__DIR__ . '/../config' => Autoconfig\Config::CONFIG_WEIGHT_APP,
-		__DIR__ . '/config' => Autoconfig\Config::CONFIG_WEIGHT_APP
+		__DIR__ . '/../config' => Autoconfig::CONFIG_WEIGHT_APP,
+		__DIR__ . '/config' => Autoconfig::CONFIG_WEIGHT_APP
 
 	],
 
