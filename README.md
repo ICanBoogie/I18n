@@ -52,8 +52,8 @@ cloned with the following command line:
 
 ## Documentation
 
-The package is documented as part of the [ICanBoogie](http://icanboogie.org/) framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package
+The package is documented as part of the [ICanBoogie](https://icanboogie.org/) framework
+[documentation](https://icanboogie.org/docs/). You can generate the documentation for the package
 and its dependencies with the `make doc` command. The documentation is generated in the `docs`
 directory. [ApiGen](http://apigen.org/) is required. You can later clean the directory with
 the `make clean` command.
