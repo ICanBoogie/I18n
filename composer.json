@@ -24,13 +24,13 @@
 	"prefer-dist": true,
 	"require": {
 		"php": ">=5.6",
-		"icanboogie/cldr": "^1.4|^2.0",
+		"icanboogie/cldr": "^1.4|^2.0|^3.0",
 		"icanboogie/prototype": "^3.0|^4.0|^5.0",
 		"olvlvl/filecache": "dev-master"
 	},
 	"require-dev": {
 		"icanboogie/icanboogie": "^4.0",
-		"icanboogie/bind-cldr": "^2.0"
+		"icanboogie/bind-cldr": "^2.0|^3.0"
 	},
 	"autoload": {
 		"psr-4": {
